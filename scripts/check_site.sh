@@ -34,7 +34,7 @@ if [ "$NGINX_CONFIG" = "secure.conf" ]; then
     headers=$(curl -s -I $CURL_OPTS $URL/)
     
     echo -n "Checking for Strict-Transport-Security header... "
-    if echo "$headers" | grep -q "Strict-Transport-Security"; then
+    if echo "$headers" | grep -qi "Strict-Transport-Security"; then
         echo "Found."
     else
         echo "NOT FOUND."
@@ -43,7 +43,7 @@ if [ "$NGINX_CONFIG" = "secure.conf" ]; then
     fi
 
     echo -n "Checking for X-Frame-Options: DENY header... "
-    if echo "$headers" | grep -q "X-Frame-Options: DENY"; then
+    if echo "$headers" | grep -qi "X-Frame-Options: DENY"; then
         echo "Found."
     else
         echo "NOT FOUND."
@@ -52,7 +52,7 @@ if [ "$NGINX_CONFIG" = "secure.conf" ]; then
     fi
 
     echo -n "Checking for X-Content-Type-Options: nosniff header... "
-    if echo "$headers" | grep -q "X-Content-Type-Options: nosniff"; then
+    if echo "$headers" | grep -qi "X-Content-Type-Options: nosniff"; then
         echo "Found."
     else
         echo "NOT FOUND."
@@ -61,7 +61,7 @@ if [ "$NGINX_CONFIG" = "secure.conf" ]; then
     fi
 
     echo -n "Checking for Referrer-Policy: no-referrer-when-downgrade header... "
-    if echo "$headers" | grep -q "Referrer-Policy: no-referrer-when-downgrade"; then
+    if echo "$headers" | grep -qi "Referrer-Policy: no-referrer-when-downgrade"; then
         echo "Found."
     else
         echo "NOT FOUND."
@@ -70,7 +70,7 @@ if [ "$NGINX_CONFIG" = "secure.conf" ]; then
     fi
 
     echo -n "Checking for Content-Security-Policy header... "
-    if echo "$headers" | grep -q "Content-Security-Policy"; then
+    if echo "$headers" | grep -qi "Content-Security-Policy"; then
         echo "Found."
     else
         echo "NOT FOUND."
@@ -83,7 +83,7 @@ fi
 if [ "$NGINX_CONFIG" = "insecure.conf" ]; then
     echo "Checking for absence of security headers (insecure config)"
     headers=$(curl -s -I $CURL_OPTS $URL/)
-    if echo "$headers" | grep -q "X-Frame-Options"; then
+    if echo "$headers" | grep -qi "X-Frame-Options"; then
         echo "X-Frame-Options header found, which is unexpected in the insecure config."
         exit 1
     fi
