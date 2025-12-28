@@ -92,12 +92,12 @@ fi
 
 # Check for gzip compression
 echo "Checking for gzip compression"
-curl -s -H "Accept-Encoding: gzip" -I $CURL_OPTS $URL/assets/style.css | grep -q "Content-Encoding: gzip"
+curl -s -H "Accept-Encoding: gzip" -I $CURL_OPTS $URL/assets/style.css | grep -qi "Content-Encoding: gzip"
 echo "OK"
 
 # Check for Cache-Control header for assets
 echo "Checking for Cache-Control header for assets"
-curl -s -I $CURL_OPTS $URL/assets/style.css | grep -q "Cache-Control: public, max-age=31536000"
+curl -s -I $CURL_OPTS $URL/assets/style.css | grep -qi "Cache-Control: public, max-age=31536000"
 echo "OK"
 
 echo "All checks passed!"
