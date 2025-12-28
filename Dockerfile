@@ -19,12 +19,16 @@ COPY site/ /usr/share/nginx/html/
 # Copy the Nginx configuration files
 COPY nginx/ /etc/nginx/
 
-# Use the secure configuration by default
-RUN cp /etc/nginx/conf.d/secure.conf /etc/nginx/conf.d/default.conf
+
 
 # Expose port 80 for HTTP and 443 for HTTPS
 EXPOSE 80
 EXPOSE 443
 
+COPY scripts/start.sh /usr/local/bin/start.sh
+
+# Make start.sh executable
+RUN chmod +x /usr/local/bin/start.sh
+
 # Start Nginx when the container launches
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["/usr/local/bin/start.sh"]

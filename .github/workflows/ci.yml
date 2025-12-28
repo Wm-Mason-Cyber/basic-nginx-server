@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  test:
+  build-and-test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -20,14 +20,14 @@ jobs:
       uses: docker/setup-buildx-action@v1
 
     - name: Build and start services
-      run: |
-        export NGINX_CONFIG=${{ matrix.nginx_config }}
-        docker compose up --build -d
+      env:
+        NGINX_CONFIG: ${{ matrix.nginx_config }}
+      run: docker compose up --build -d
 
     - name: Run tests
-      run: |
-        export NGINX_CONFIG=${{ matrix.nginx_config }}
-        ./tests/run_checks.sh
+      env:
+        NGINX_CONFIG: ${{ matrix.nginx_config }}
+      run: ./tests/run_checks.sh
 
     - name: Stop services
       if: always()

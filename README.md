@@ -21,7 +21,8 @@ This repository provides a basic example of how to serve a static website using 
 │   └── nginx.conf
 ├── scripts/
 │   ├── check_site.sh
-│   └── generate-selfsigned.sh
+│   ├── generate-selfsigned.sh
+│   └── start.sh
 ├── site/
 │   ├── assets/
 │   │   ├── app.js
@@ -60,48 +61,35 @@ This repository provides a basic example of how to serve a static website using 
     cd basic-nginx-server
     ```
 
-2.  **Start the server:**
+2.  **Start the server (insecure configuration):**
 
     ```bash
     make up
     ```
 
-    This will start the Nginx server in the background with the secure configuration by default. You can access the site at `https://localhost:8443`.
+    This will start the Nginx server in the background with the insecure configuration. You can access the site at `http://localhost:8080`.
 
-3.  **Run the tests:**
+3.  **Start the server (secure configuration):**
+
+    ```bash
+    make up-secure
+    ```
+
+    This will generate self-signed certificates and start the Nginx server with the secure configuration. You can access the site at `https://localhost:8443`.
+
+4.  **Run the tests (insecure configuration):**
 
     ```bash
     make test
     ```
 
-4.  **Switch to the insecure configuration for exercises:**
+5.  **Run the tests (secure configuration):**
 
-    To switch to the insecure configuration for the exercises, you can mount the `insecure.conf` file over the default configuration in the `docker-compose.yml` file.
-
-    First, stop the running container:
     ```bash
-    make down
+    make test-secure
     ```
 
-    Then, modify the `docker-compose.yml` file to mount the `insecure.conf` file:
-    ```yaml
-    services:
-      web:
-        build: .
-        ports:
-          - "8080:80"
-          - "8443:443"
-        volumes:
-          - ./nginx/conf.d/insecure.conf:/etc/nginx/conf.d/default.conf
-    ```
-
-    Finally, start the server again:
-    ```bash
-    make up
-    ```
-    You can now access the site at `http://localhost:8080`.
-
-5.  **Stop the server:**
+6.  **Stop the server:**
 
     ```bash
     make down

@@ -6,4 +6,6 @@ services:
     ports:
       - "8080:80"
       - "8443:443"
+    environment:
+      - NGINX_CONFIG=${NGINX_CONFIG:-insecure.conf}
 
