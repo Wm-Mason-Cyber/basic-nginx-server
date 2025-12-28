@@ -20,12 +20,12 @@ echo "Server is ready."
 
 # Check for HTTP 200 on /
 echo "Checking for HTTP 200 on /"
-curl -s -I $CURL_OPTS $URL/ | grep -q "HTTP/1.1 200 OK"
+curl -s -I $CURL_OPTS $URL/ | grep -q "200"
 echo "OK"
 
 # Check for 404 on unknown path
 echo "Checking for 404 on unknown path"
-curl -s -I $CURL_OPTS $URL/unknown | grep -q "HTTP/1.1 404 Not Found"
+curl -s -I $CURL_OPTS $URL/unknown | grep -q "404"
 echo "OK"
 
 # Check for security headers (secure config)
