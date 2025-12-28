@@ -1,0 +1,33 @@
+# Ignore self-signed certificates
+certs/
+
+# Ignore Docker-related files
+docker-compose.override.yml
+.docker-compose-v2.lock
+
+# Ignore local artifacts and cache
+.DS_Store
+*.local
+*.log
+*.tmp
+*.swp
+*.swo
+*~
+*.bak
+
+# Ignore build artifacts
+build/
+dist/
+
+# Ignore dependency directories
+node_modules/
+vendor/
+
+# Ignore IDE-specific files
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.vshistory
