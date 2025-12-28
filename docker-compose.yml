@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/conf.d/${NGINX_CONFIG:-insecure.conf}:/etc/nginx/conf.d/default.conf
