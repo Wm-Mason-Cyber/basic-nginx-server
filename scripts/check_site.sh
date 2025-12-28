@@ -32,16 +32,51 @@ echo "OK"
 if [ "$NGINX_CONFIG" = "secure.conf" ]; then
     echo "Checking for security headers (secure config)"
     headers=$(curl -s -I $CURL_OPTS $URL/)
-    echo "$headers" | grep -q "Strict-Transport-Security"
-    echo "HSTS header found."
-    echo "$headers" | grep -q "X-Frame-Options: DENY"
-    echo "X-Frame-Options header found."
-    echo "$headers" | grep -q "X-Content-Type-Options: nosniff"
-    echo "X-Content-Type-Options header found."
-    echo "$headers" | grep -q "Referrer-Policy: no-referrer-when-downgrade"
-    echo "Referrer-Policy header found."
-    echo "$headers" | grep -q "Content-Security-Policy"
-    echo "CSP header found."
+    
+    echo -n "Checking for Strict-Transport-Security header... "
+    if echo "$headers" | grep -q "Strict-Transport-Security"; then
+        echo "Found."
+    else
+        echo "NOT FOUND."
+        echo "Headers received: $headers"
+        exit 1
+    fi
+
+    echo -n "Checking for X-Frame-Options: DENY header... "
+    if echo "$headers" | grep -q "X-Frame-Options: DENY"; then
+        echo "Found."
+    else
+        echo "NOT FOUND."
+        echo "Headers received: $headers"
+        exit 1
+    fi
+
+    echo -n "Checking for X-Content-Type-Options: nosniff header... "
+    if echo "$headers" | grep -q "X-Content-Type-Options: nosniff"; then
+        echo "Found."
+    else
+        echo "NOT FOUND."
+        echo "Headers received: $headers"
+        exit 1
+    fi
+
+    echo -n "Checking for Referrer-Policy: no-referrer-when-downgrade header... "
+    if echo "$headers" | grep -q "Referrer-Policy: no-referrer-when-downgrade"; then
+        echo "Found."
+    else
+        echo "NOT FOUND."
+        echo "Headers received: $headers"
+        exit 1
+    fi
+
+    echo -n "Checking for Content-Security-Policy header... "
+    if echo "$headers" | grep -q "Content-Security-Policy"; then
+        echo "Found."
+    else
+        echo "NOT FOUND."
+        echo "Headers received: $headers"
+        exit 1
+    fi
 fi
 
 # Check for absence of security headers (insecure config)
