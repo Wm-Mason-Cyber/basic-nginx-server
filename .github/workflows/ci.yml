@@ -22,7 +22,7 @@ jobs:
     - name: Build and start services
       run: |
         export NGINX_CONFIG=${{ matrix.nginx_config }}
-        docker-compose up --build -d
+        docker compose up --build -d
 
     - name: Run tests
       run: |
@@ -31,4 +31,4 @@ jobs:
 
     - name: Stop services
       if: always()
-      run: docker-compose down
+      run: docker compose down
