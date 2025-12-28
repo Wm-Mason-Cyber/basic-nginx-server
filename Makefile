@@ -6,15 +6,15 @@ all: up
 
 up:
 	@echo "Starting up the services..."
-	@docker-compose up --build -d
+	@docker compose up --build -d
 
 down:
 	@echo "Stopping the services..."
-	@docker-compose down
+	@docker compose down
 
 test:
 	@echo "Running tests..."
-	@./tests/run_checks.sh
+	@export NGINX_CONFIG=secure.conf && ./tests/run_checks.sh
 
 lint-html:
 	@echo "Linting HTML files..."
@@ -26,5 +26,5 @@ lint-html:
 
 reset: down
 	@echo "Resetting the environment..."
-	@docker-compose down -v --remove-orphans
+	@docker compose down -v --remove-orphans
 	@rm -rf certs
