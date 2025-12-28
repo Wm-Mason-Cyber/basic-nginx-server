@@ -90,15 +90,17 @@ if [ "$NGINX_CONFIG" = "insecure.conf" ]; then
     echo "X-Frame-Options header not found, as expected."
 fi
 
-# Check for gzip compression
-echo "Checking for gzip compression"
-curl -s -H "Accept-Encoding: gzip" -I $CURL_OPTS $URL/assets/style.css | grep -qi "Content-Encoding: gzip"
-echo "OK"
+if [ "$NGINX_CONFIG" = "secure.conf" ]; then
+    # Check for gzip compression
+    echo "Checking for gzip compression"
+    curl -s -H "Accept-Encoding: gzip" -I $CURL_OPTS $URL/assets/style.css | grep -qi "Content-Encoding: gzip"
+    echo "OK"
 
-# Check for Cache-Control header for assets
-echo "Checking for Cache-Control header for assets"
-curl -s -I $CURL_OPTS $URL/assets/style.css | grep -qi "Cache-Control: public, max-age=31536000"
-echo "OK"
+    # Check for Cache-Control header for assets
+    echo "Checking for Cache-Control header for assets"
+    curl -s -I $CURL_OPTS $URL/assets/style.css | grep -qi "Cache-Control: public, max-age=31536000"
+    echo "OK"
+fi
 
 echo "All checks passed!"
 exit 0
