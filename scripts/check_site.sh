@@ -37,7 +37,7 @@ if [ "$NGINX_CONFIG" = "secure.conf" ]; then
     echo "$headers" | grep -q "X-Frame-Options: DENY"
     echo "X-Frame-Options header found."
     echo "$headers" | grep -q "X-Content-Type-Options: nosniff"
-    echo "X-Content-Type-Type-Options header found."
+    echo "X-Content-Type-Options header found."
     echo "$headers" | grep -q "Referrer-Policy: no-referrer-when-downgrade"
     echo "Referrer-Policy header found."
     echo "$headers" | grep -q "Content-Security-Policy"
